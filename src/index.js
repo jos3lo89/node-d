@@ -1,17 +1,13 @@
-import express from "express";
-import cors from "cors";
-import { config } from "dotenv";
+import app from "./config/app.js";
+import { PORT } from "./config/config.js";
 
-config();
-const app = express();
-app.use(cors());
-
-app.get("/ping", (req, res) => {
+function serverOn() {
   try {
-    res.json({ message: ["pong"] });
+    app.listen(PORT);
+    console.log(`server on port ${PORT}`);
   } catch (error) {
-    res.status(500).json({ message: [error.message] });
+    console.log(error.message);
   }
-});
+}
 
-app.listen(process.env.PORT, () => console.log("server on"));
+serverOn();
